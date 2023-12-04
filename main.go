@@ -30,8 +30,13 @@ func main() {
 		}
 
 		slot1.Spin()
-		if slot1.CheckWin() {
+		status, multipier := slot1.CheckWin()
+		if status {
 			fmt.Println("You Won")
+			if multipier == 6 {
+				slot1.Credits *= 3
+				fmt.Println("DIAMOND: CREDITS MULTIPLIED")
+			}
 		} else {
 			fmt.Println("Unlucky try again?")
 		}

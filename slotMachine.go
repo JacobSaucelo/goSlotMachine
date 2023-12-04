@@ -85,7 +85,7 @@ func (s *SlotMachineType) Spin() {
 }
 
 func (s *SlotMachineType) Display() {
-	clearScreen()
+	// clearScreen()
 	for i := range s.Reels {
 		fmt.Print("\n          ")
 		fmt.Printf("%s | %s | %s ", s.Reels[i][0].icon, s.Reels[i][1].icon, s.Reels[i][2].icon)
@@ -104,19 +104,19 @@ func (s *SlotMachineType) Display() {
 	fmt.Println("--------------------------------------")
 }
 
-func (s *SlotMachineType) CheckWin() bool {
+func (s *SlotMachineType) CheckWin() (bool, byte) {
 	for i := 0; i < 3; i++ {
 		if s.Reels[i][0] == s.Reels[i][1] && s.Reels[i][1] == s.Reels[i][2] {
 			s.Credits += uint32(s.Reels[i][0].reward)
 			reward = int(s.Reels[i][0].reward)
 			fmt.Println("you won ", reward)
-			return true
+			return true, s.Reels[i][0].id
 		}
 		if s.Reels[0][i] == s.Reels[1][i] && s.Reels[1][i] == s.Reels[2][i] {
 			s.Credits += uint32(s.Reels[i][0].reward)
-			reward = int(s.Reels[i][0].reward)
+			reward = int(s.Reels[0][i].reward)
 			fmt.Println("you won ", reward)
-			return true
+			return true, s.Reels[0][i].id
 		}
 	}
 
@@ -125,17 +125,17 @@ func (s *SlotMachineType) CheckWin() bool {
 		s.Credits += uint32(s.Reels[1][1].reward)
 		reward = int(s.Reels[1][1].reward)
 		fmt.Println("you won ", reward)
-		return true
+		return true, s.Reels[1][1].id
 	}
 	if s.Reels[0][2] == s.Reels[1][1] && s.Reels[1][1] == s.Reels[2][0] {
 		s.Credits += uint32(s.Reels[1][1].reward)
 		reward = int(s.Reels[1][1].reward)
 		fmt.Println("you won ", reward)
-		return true
+		return true, s.Reels[1][1].id
 	}
 
 	reward = 0
-	return false
+	return false, 0
 }
 
 func generateRandomSymbol(min, max int) SymbolType {
