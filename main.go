@@ -16,6 +16,7 @@ var test = [][]int{
 func main() {
 
 	slot1 := NewSlotMachine()
+	fmt.Println("Press enter to start")
 
 	for {
 		reader := bufio.NewReader(os.Stdin)
@@ -23,6 +24,9 @@ func main() {
 		playerInput, _ := reader.ReadString('\n')
 		if strings.ToLower(strings.TrimSpace(playerInput)) == "e" {
 			break
+		}
+		if strings.ToLower(strings.TrimSpace(playerInput)) == "r" {
+			slot1.Credits += 100
 		}
 
 		slot1.Spin()
@@ -32,7 +36,6 @@ func main() {
 			fmt.Println("Unlucky try again?")
 		}
 		slot1.Display()
-
 	}
 
 }
