@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 )
 
@@ -66,10 +67,24 @@ func (s *SlotMachineType) Spin() {
 	}
 }
 
+func (s *SlotMachineType) Display() {
+	clearScreen()
+	for i := range s.Reels {
+		for j := range s.Reels[i] {
+			fmt.Printf(" %s ", s.Reels[i][j].icon)
+		}
+		fmt.Println()
+	}
+}
+
 func generateRandomSymbol(min, max int) SymbolType {
 	//? 	THIS IS BASED ON TIME - GO TOO FAST IT GIVES SAME NUMBER ID
 	// source := rand.NewSource(time.Now().UnixNano())
 	// rng := rand.New(source)
 
 	return Symbols[rand.Intn(max-min)+1]
+}
+
+func clearScreen() {
+	fmt.Print("\033[H\033[2J")
 }
