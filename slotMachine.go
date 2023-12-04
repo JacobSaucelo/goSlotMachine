@@ -84,8 +84,8 @@ func (s *SlotMachineType) Spin() {
 	}
 }
 
-func (s *SlotMachineType) Display() {
-	// clearScreen()
+func (s *SlotMachineType) Display(status string) {
+	clearScreen()
 	for i := range s.Reels {
 		fmt.Print("\n          ")
 		fmt.Printf("%s | %s | %s ", s.Reels[i][0].icon, s.Reels[i][1].icon, s.Reels[i][2].icon)
@@ -99,6 +99,7 @@ func (s *SlotMachineType) Display() {
 	fmt.Println("--------------------------------------")
 	fmt.Printf("Credits: %d \n\n", s.Credits)
 	fmt.Printf("Reward: %d \n\n", reward)
+	fmt.Println(status)
 	fmt.Println("Press (Enter) key to play more ")
 	fmt.Println("Press e to exit")
 	fmt.Println("--------------------------------------")
