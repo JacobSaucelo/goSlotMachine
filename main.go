@@ -20,7 +20,6 @@ func main() {
 
 	for {
 		reader := bufio.NewReader(os.Stdin)
-
 		playerInput, _ := reader.ReadString('\n')
 		if strings.ToLower(strings.TrimSpace(playerInput)) == "e" {
 			break

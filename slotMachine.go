@@ -64,7 +64,7 @@ var Symbols = []SymbolType{
 func NewSlotMachine() *SlotMachineType {
 	return &SlotMachineType{
 		Reels:   [][]SymbolType{},
-		Credits: 50,
+		Credits: 100,
 	}
 }
 
@@ -97,6 +97,8 @@ func (s *SlotMachineType) Display(status string) {
 	fmt.Print("\n")
 
 	fmt.Println("--------------------------------------")
+	fmt.Println("|🍎=10|🥭=10|🍉=10|🍓=15|🍇=20|🍒=20|")
+	fmt.Println("|💎=(credits x 3)|🍏=100|")
 	fmt.Printf("Credits: %d \n\n", s.Credits)
 	fmt.Printf("Reward: %d \n\n", reward)
 	fmt.Println(status)
