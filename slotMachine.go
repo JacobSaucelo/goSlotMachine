@@ -1,8 +1,18 @@
 package main
 
+import (
+	"math/rand"
+	"time"
+)
+
 type SymbolType struct {
 	id   byte
 	icon string
+}
+
+type SlotMachineType struct {
+	Reels   [][]SymbolType
+	Credits uint32
 }
 
 var Symbols = []SymbolType{
@@ -38,4 +48,18 @@ var Symbols = []SymbolType{
 		id:   7,
 		icon: "🍏",
 	},
+}
+
+func NewSlotMachine() *SlotMachineType {
+	return &SlotMachineType{
+		Reels:   [][]SymbolType{},
+		Credits: 50,
+	}
+}
+
+func generateRandomId(min, max int) int {
+	source := rand.NewSource(time.Now().UnixNano())
+	rng := rand.New(source)
+
+	return rng.Intn(max-min) + 1
 }
