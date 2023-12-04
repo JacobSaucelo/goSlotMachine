@@ -12,7 +12,10 @@ func main() {
 	slot1 := NewSlotMachine()
 
 	slot1.Spin()
+	if slot1.CheckWin() {
+		fmt.Println("You Won")
+	} else {
+		fmt.Println("Unlucky try again?")
+	}
 	slot1.Display()
-	fmt.Println("didWin: ", slot1.CheckWin())
-	// fmt.Println(slot1)
 }
