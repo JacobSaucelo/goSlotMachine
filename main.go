@@ -1,9 +1,6 @@
 package main
 
-import (
-	"fmt"
-	"math/rand"
-)
+import "fmt"
 
 var test = [][]int{
 	{0, 1, 2},
@@ -12,13 +9,8 @@ var test = [][]int{
 }
 
 func main() {
-	for i := 0; i < 20; i++ {
-		fmt.Println(getRandomNumber())
-	}
+	slot1 := NewSlotMachine()
 
-}
-
-func getRandomNumber() int {
-
-	return rand.Intn(10-1) + 1
+	slot1.Spin()
+	fmt.Println(slot1)
 }

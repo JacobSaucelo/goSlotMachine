@@ -2,7 +2,6 @@ package main
 
 import (
 	"math/rand"
-	"time"
 )
 
 type SymbolType struct {
@@ -57,9 +56,20 @@ func NewSlotMachine() *SlotMachineType {
 	}
 }
 
-func generateRandomId(min, max int) int {
-	source := rand.NewSource(time.Now().UnixNano())
-	rng := rand.New(source)
+func (s *SlotMachineType) Spin() {
+	s.Reels = make([][]SymbolType, 3)
+	for i := range s.Reels {
+		s.Reels[i] = make([]SymbolType, 3)
+		for j := range s.Reels[i] {
+			s.Reels[i][j] = generateRandomSymbol(1, 8)
+		}
+	}
+}
 
-	return rng.Intn(max-min) + 1
+func generateRandomSymbol(min, max int) SymbolType {
+	//? 	THIS IS BASED ON TIME - GO TOO FAST IT GIVES SAME NUMBER ID
+	// source := rand.NewSource(time.Now().UnixNano())
+	// rng := rand.New(source)
+
+	return Symbols[rand.Intn(max-min)+1]
 }
