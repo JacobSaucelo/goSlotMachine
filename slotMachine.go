@@ -69,6 +69,11 @@ func NewSlotMachine() *SlotMachineType {
 
 func (s *SlotMachineType) Spin() {
 	clearScreen()
+	if s.Credits < 10 {
+		fmt.Println("You dont have enough credits to continue")
+		return
+	}
+
 	s.Credits -= 10
 	s.Reels = make([][]SymbolType, 3)
 	for i := range s.Reels {
@@ -90,7 +95,8 @@ func (s *SlotMachineType) Display() {
 
 	fmt.Println("--------------------------------------")
 	fmt.Printf("Credits: %d \n\n", s.Credits)
-	fmt.Println("Press (X) to play more ")
+	fmt.Println("Press (Enter) key to play more ")
+	fmt.Println("Press e to exit")
 	fmt.Println("--------------------------------------")
 }
 

@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
 
 var test = [][]int{
 	{0, 1, 2},
@@ -9,13 +14,25 @@ var test = [][]int{
 }
 
 func main() {
+
 	slot1 := NewSlotMachine()
 
-	slot1.Spin()
-	if slot1.CheckWin() {
-		fmt.Println("You Won")
-	} else {
-		fmt.Println("Unlucky try again?")
+	for {
+		reader := bufio.NewReader(os.Stdin)
+
+		playerInput, _ := reader.ReadString('\n')
+		if strings.ToLower(strings.TrimSpace(playerInput)) == "e" {
+			break
+		}
+
+		slot1.Spin()
+		if slot1.CheckWin() {
+			fmt.Println("You Won")
+		} else {
+			fmt.Println("Unlucky try again?")
+		}
+		slot1.Display()
+
 	}
-	slot1.Display()
+
 }
