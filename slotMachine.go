@@ -87,24 +87,24 @@ func (s *SlotMachineType) Spin() {
 func (s *SlotMachineType) Display(status string) {
 	clearScreen()
 	for i := range s.Reels {
-		fmt.Print("\n          ")
+		fmt.Print("\n                 ")
 		fmt.Printf("%s | %s | %s ", s.Reels[i][0].icon, s.Reels[i][1].icon, s.Reels[i][2].icon)
-		fmt.Print("\n          ")
+		fmt.Print("\n                 ")
 		// for j := range s.Reels[i] {
 		// 	fmt.Print(strings.TrimSpace(s.Reels[i][j].icon), " | ")
 		// }
 	}
 	fmt.Print("\n")
 
-	fmt.Println("--------------------------------------")
-	fmt.Println("|🍎=10|🥭=10|🍉=10|🍓=15|🍇=20|🍒=20|")
-	fmt.Println("|💎=(credits x 3)|🍏=100|")
-	fmt.Printf("Credits: %d \n\n", s.Credits)
+	fmt.Println("-------------------------------------------------")
+	fmt.Println("|🍎 = 10|🥭 = 10|🍉 = 10|🍓 = 15|🍇 = 20|🍒 = 20|")
+	fmt.Println("|💎 = (credits x 3)|🍏 = 100|")
+	fmt.Printf("\nCredits: %d \n\n", s.Credits)
 	fmt.Printf("Reward: %d \n\n", reward)
 	fmt.Println(status)
 	fmt.Println("Press (Enter) key to play more ")
 	fmt.Println("Press e to exit")
-	fmt.Println("--------------------------------------")
+	fmt.Println("-------------------------------------------------")
 }
 
 func (s *SlotMachineType) CheckWin() (bool, byte) {
@@ -116,7 +116,7 @@ func (s *SlotMachineType) CheckWin() (bool, byte) {
 			return true, s.Reels[i][0].id
 		}
 		if s.Reels[0][i] == s.Reels[1][i] && s.Reels[1][i] == s.Reels[2][i] {
-			s.Credits += uint32(s.Reels[i][0].reward)
+			s.Credits += uint32(s.Reels[0][i].reward)
 			reward = int(s.Reels[0][i].reward)
 			fmt.Println("you won ", reward)
 			return true, s.Reels[0][i].id
