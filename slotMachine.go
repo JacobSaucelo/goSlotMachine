@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 )
 
 type SymbolType struct {
@@ -58,11 +59,12 @@ func NewSlotMachine() *SlotMachineType {
 }
 
 func (s *SlotMachineType) Spin() {
+	// if s.Credits < 10 return
 	s.Reels = make([][]SymbolType, 3)
 	for i := range s.Reels {
 		s.Reels[i] = make([]SymbolType, 3)
 		for j := range s.Reels[i] {
-			s.Reels[i][j] = generateRandomSymbol(1, 8)
+			s.Reels[i][j] = generateRandomSymbol(0, 7)
 		}
 	}
 }
@@ -70,11 +72,38 @@ func (s *SlotMachineType) Spin() {
 func (s *SlotMachineType) Display() {
 	clearScreen()
 	for i := range s.Reels {
+		fmt.Print("\n          |")
 		for j := range s.Reels[i] {
-			fmt.Printf(" %s ", s.Reels[i][j].icon)
+			fmt.Print(strings.TrimSpace(s.Reels[i][j].icon), " | ")
 		}
-		fmt.Println()
 	}
+	fmt.Print("\n")
+
+	// fmt.Println("--------------------------------------")
+	// fmt.Printf("Credits: %d \n\n", s.Credits)
+	// fmt.Println("Press (X) to play more ")
+	// fmt.Println("--------------------------------------")
+}
+
+func (s *SlotMachineType) CheckWin() bool {
+	for i := 0; i < 3; i++ {
+		if s.Reels[i][0] == s.Reels[i][1] && s.Reels[i][1] == s.Reels[i][2] {
+			return true
+		}
+		if s.Reels[0][i] == s.Reels[1][i] && s.Reels[1][i] == s.Reels[2][i] {
+			return true
+		}
+	}
+
+	//? DIAGONAL
+	if s.Reels[0][0] == s.Reels[1][1] && s.Reels[1][1] == s.Reels[2][2] {
+		return true
+	}
+	if s.Reels[0][2] == s.Reels[1][1] && s.Reels[1][1] == s.Reels[2][0] {
+		return true
+	}
+
+	return false
 }
 
 func generateRandomSymbol(min, max int) SymbolType {
