@@ -106,6 +106,7 @@ func (s *SlotMachineType) Display(status string) {
 	if s.Credits > 1000 {
 		fmt.Println("| Higher stakes 🧈🧈🧈 |")
 	}
+	fmt.Printf("| spin = %d |\n", s.Credits)
 	fmt.Printf("\nCredits: %d \n\n", s.Credits)
 	fmt.Printf("Reward: %d \n\n", reward)
 	fmt.Println(status)
