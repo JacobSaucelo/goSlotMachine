@@ -89,6 +89,11 @@ func (s *SlotMachineType) Spin(chips uint32) {
 }
 
 func (s *SlotMachineType) Display(status string) {
+	displayCred := 10
+	if s.Credits > 1000 {
+		displayCred = 100
+	}
+
 	clearScreen()
 	for i := range s.Reels {
 		fmt.Print("\n                 ")
@@ -103,10 +108,10 @@ func (s *SlotMachineType) Display(status string) {
 	fmt.Println("-------------------------------------------------")
 	fmt.Println("|🍎 = 10|🥭 = 10|🍉 = 10|🍓 = 15|🍇 = 20|🍒 = 20|")
 	fmt.Println("|💎 = (credits x 3)|🍏 = 100|")
+	fmt.Printf("|spin = %d|\n", displayCred)
 	if s.Credits > 1000 {
 		fmt.Println("| Higher stakes 🧈🧈🧈 |")
 	}
-	fmt.Printf("| spin = %d |\n", s.Credits)
 	fmt.Printf("\nCredits: %d \n\n", s.Credits)
 	fmt.Printf("Reward: %d \n\n", reward)
 	fmt.Println(status)
