@@ -68,13 +68,17 @@ func NewSlotMachine() *SlotMachineType {
 	}
 }
 
-func (s *SlotMachineType) Spin() {
+func (s *SlotMachineType) Spin(chips uint32) {
 	if s.Credits < 10 {
 		fmt.Println("You dont have enough credits to continue")
 		return
 	}
 
-	s.Credits -= 10
+	if s.Credits > 1000 {
+		chips = 100
+	}
+
+	s.Credits -= chips
 	s.Reels = make([][]SymbolType, 3)
 	for i := range s.Reels {
 		s.Reels[i] = make([]SymbolType, 3)
@@ -99,6 +103,9 @@ func (s *SlotMachineType) Display(status string) {
 	fmt.Println("-------------------------------------------------")
 	fmt.Println("|🍎 = 10|🥭 = 10|🍉 = 10|🍓 = 15|🍇 = 20|🍒 = 20|")
 	fmt.Println("|💎 = (credits x 3)|🍏 = 100|")
+	if s.Credits > 1000 {
+		fmt.Println("| Higher stakes 🧈🧈🧈 |")
+	}
 	fmt.Printf("\nCredits: %d \n\n", s.Credits)
 	fmt.Printf("Reward: %d \n\n", reward)
 	fmt.Println(status)
@@ -112,13 +119,11 @@ func (s *SlotMachineType) CheckWin() (bool, byte) {
 		if s.Reels[i][0] == s.Reels[i][1] && s.Reels[i][1] == s.Reels[i][2] {
 			s.Credits += uint32(s.Reels[i][0].reward)
 			reward = int(s.Reels[i][0].reward)
-			fmt.Println("you won ", reward)
 			return true, s.Reels[i][0].id
 		}
 		if s.Reels[0][i] == s.Reels[1][i] && s.Reels[1][i] == s.Reels[2][i] {
 			s.Credits += uint32(s.Reels[0][i].reward)
 			reward = int(s.Reels[0][i].reward)
-			fmt.Println("you won ", reward)
 			return true, s.Reels[0][i].id
 		}
 	}
@@ -127,13 +132,11 @@ func (s *SlotMachineType) CheckWin() (bool, byte) {
 	if s.Reels[0][0] == s.Reels[1][1] && s.Reels[1][1] == s.Reels[2][2] {
 		s.Credits += uint32(s.Reels[1][1].reward)
 		reward = int(s.Reels[1][1].reward)
-		fmt.Println("you won ", reward)
 		return true, s.Reels[1][1].id
 	}
 	if s.Reels[0][2] == s.Reels[1][1] && s.Reels[1][1] == s.Reels[2][0] {
 		s.Credits += uint32(s.Reels[1][1].reward)
 		reward = int(s.Reels[1][1].reward)
-		fmt.Println("you won ", reward)
 		return true, s.Reels[1][1].id
 	}
 

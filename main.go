@@ -13,6 +13,8 @@ var test = [][]int{
 	{1, 0, 2},
 }
 
+var chips uint32 = 10
+
 func main() {
 
 	slot1 := NewSlotMachine()
@@ -28,12 +30,18 @@ func main() {
 			slot1.Credits += 100
 		}
 
-		slot1.Spin()
+		slot1.Spin(chips)
 		status, multipier := slot1.CheckWin()
 		if status {
 			if multipier == 6 {
-				slot1.Credits *= 3
-				slot1.Display("DIAMOND: CREDITS MULTIPLIED")
+				multipliedReward := slot1.Credits * 3
+				if multipliedReward > 1000 {
+					slot1.Credits += 1000
+					slot1.Display("DIAMOND: +1000 REACHED MAX WIN!")
+				} else {
+					slot1.Display("DIAMOND: CREDITS MULTIPLIED!")
+					slot1.Credits *= 3
+				}
 			} else {
 				slot1.Display("You Won")
 			}
