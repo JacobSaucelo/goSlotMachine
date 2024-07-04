@@ -17,6 +17,7 @@ type SlotMachineType struct {
 }
 
 var reward = 0
+var winnings = 0
 
 var Symbols = []SymbolType{
 	{
@@ -74,8 +75,14 @@ func (s *SlotMachineType) Spin(chips uint32) {
 		return
 	}
 
+	if s.Credits < 100 {
+		chips = 10
+	}
+	if 500 > s.Credits && s.Credits > 100 {
+		chips = 40
+	}
 	if 1000 > s.Credits && s.Credits > 500 {
-		chips = 50
+		chips = 80
 	}
 	if s.Credits > 1000 {
 		chips = 100
@@ -93,6 +100,16 @@ func (s *SlotMachineType) Spin(chips uint32) {
 
 func (s *SlotMachineType) Display(status string) {
 	displayCred := 10
+
+	if s.Credits < 100 {
+		displayCred = 10
+	}
+	if 500 > s.Credits && s.Credits > 100 {
+		displayCred = 40
+	}
+	if 1000 > s.Credits && s.Credits > 500 {
+		displayCred = 50
+	}
 	if s.Credits > 1000 {
 		displayCred = 100
 	}
@@ -112,11 +129,18 @@ func (s *SlotMachineType) Display(status string) {
 	fmt.Println("|🍎 = 50|🥭 = 80|🍓 = 95|🍉= 100|🍇 = 150|🍒 = 150|")
 	fmt.Println("|💎 = (credits x 3)|🍏 = 250|")
 	fmt.Printf("|spin = %d|\n", displayCred)
+
+	if s.Credits < 100 {
+		fmt.Println("|Rock Bottom 🗿💸📉|")
+	}
+	if 500 > s.Credits && s.Credits > 100 {
+		fmt.Println("|Lucky? 💰🍀☘️|")
+	}
 	if 1000 > s.Credits && s.Credits > 500 {
-		fmt.Println("| Thin ICE 🥶🧊⛄ |")
+		fmt.Println("|Thin ICE 🥶🧊⛄|")
 	}
 	if s.Credits > 1000 {
-		fmt.Println("| Higher stakes 🧈🧈🧈 |")
+		fmt.Println("|High stakes 🧈🧈🧈|")
 	}
 	fmt.Printf("\nCredits: %d \n\n", s.Credits)
 	fmt.Printf("Reward: %d \n\n", reward)
